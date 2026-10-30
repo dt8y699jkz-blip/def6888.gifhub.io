@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Def Leppard Rock Store</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #101010;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #080808;
+      padding: 20px 15px;
+      text-align: center;
+      border-bottom: 2px solid #c51c30;
+    }
+
+    header h1 {
+      color: #e4b34f;
+      font-size: clamp(24px, 6vw, 38px);
+      letter-spacing: 2px;
+    }
+
+    header p {
+      color: #dddddd;
+      margin-top: 5px;
+      font-size: 13px;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      background: #1b1b1b;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 13px 10px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    nav a:hover {
+      color: #e4b34f;
+    }
+
+    .hero {
+      min-height: 380px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 45px 20px;
+      background:
+        linear-gradient(rgba(0,0,0,0.70), rgba(0,0,0,0.85)),
+        url("images/IMG_3829.jpeg") center/cover no-repeat;
+    }
+
+    .hero h2 {
+      color: #ffffff;
+      font-size: clamp(30px, 7vw, 52px);
+      line-height: 1.15;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: #eeeeee;
+      margin-bottom: 25px;
+    }
+
+    .button {
+      display: inline-block;
+      background: #c51c30;
+      color: #ffffff;
+      border: none;
+      border-radius: 5px;
+      padding: 13px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .button:hover {
+      background: #a41425;
+      transform: translateY(-1px);
+    }
+
+    .gold-button {
+      background: #e4b34f;
+      color: #111111;
+    }
+
+    .gold-button:hover {
+      background: #f3ca75;
+    }
+
+    .section {
+      padding: 45px 16px;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 30px;
+      margin-bottom: 10px;
+      color: #e4b34f;
+    }
+
+    .section-description {
+      text-align: center;
+      color: #cccccc;
+      margin-bottom: 30px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .product-card {
+      background: #1b1b1b;
+      border: 1px solid #363636;
+      border-radius: 9px;
+      overflow: hidden;
+      padding-bottom: 20px;
+      text-align: center;
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 300px;
+      object-fit: contain;
+      background: #f2f2f2;
+      display: block;
+    }
+
+    .product-card h3 {
+      margin: 18px 10px 5px;
+      font-size: 21px;
+    }
+
+    .product-card .description {
+      color: #bbbbbb;
+      font-size: 13px;
+      padding: 0 15px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      color: #e4b34f;
+      font-size: 23px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .product-options {
+      padding: 0 18px;
+      margin: 15px 0;
+      text-align: left;
+    }
+
+    .product-options label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+    }
+
+    select,
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #555555;
+      border-radius: 5px;
+      background: #101010;
+      color: white;
+      font: inherit;
+      margin-bottom: 13px;
+    }
+
+    select:focus,
+    input:focus,
+    textarea:focus {
+      outline: 2px solid #e4b34f;
+      border-color: #e4b34f;
+    }
+
+    .product-card .button {
+      width: calc(100% - 36px);
+    }
+
+    .cart-box {
+      background: #1b1b1b;
+      border: 1px solid #444444;
+      border-radius: 8px;
+      padding: 22px;
+      margin-top: 20px;
+    }
+
+    .cart-empty {
+      color: #bbbbbb;
+      padding: 15px 0;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid #3b3b3b;
+      padding: 15px 0;
+    }
+
+    .cart-item-info {
+      flex: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .cart-item-info small {
+      color: #cccccc;
+    }
+
+    .remove-button {
+      background: #a41425;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      padding: 8px 10px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .cart-total {
+      text-align: right;
+      font-size: 23px;
+      font-weight: bold;
+      color: #e4b34f;
+      padding: 20px 0;
+    }
+
+    .checkout-form {
+      margin-top: 25px;
+      border-top: 1px solid #444444;
+      padding-top: 25px;
+    }
+
+    .checkout-form h3 {
+      margin-bottom: 15px;
+      color: #e4b34f;
+    }
+
+    .checkout-form label {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 14px;
+    }
+
+    .checkout-form .button {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .order-result {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      border: 1px solid #e4b34f;
+      border-radius: 8px;
+      background: #202020;
+    }
+
+    .order-result h3 {
+      color: #e4b34f;
+      margin-bottom: 10px;
+    }
+
+    #order-details {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      background: #101010;
+      border: 1px solid #444444;
+      border-radius: 5px;
+      padding: 14px;
+      margin: 15px 0;
+      font-size: 14px;
+    }
+
+    .order-result .button {
+      width: 100%;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .order-note {
+      font-size: 13px;
+      color: #cccccc;
+      margin-top: 12px;
+    }
+
+    .about {
+      background: #181818;
+      border-top: 1px solid #333333;
+      border-bottom: 1px solid #333333;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .about h2 {
+      color: #e4b34f;
+      margin-bottom: 12px;
+    }
+
+    .about p {
+      max-width: 650px;
+      margin: auto;
+      color: #cccccc;
+    }
+
+    footer {
+      text-align: center;
+      background: #080808;
+      color: #aaaaaa;
+      padding: 25px 15px;
+      font-size: 13px;
+    }
+
+    footer a {
+      color: #e4b34f;
+      text-decoration: none;
+    }
+
+    .notice {
+      color: #cccccc;
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 480px) {
+      .hero {
+        min-height: 330px;
+      }
+
+      .section {
+        padding: 35px 13px;
+      }
+
+      .section-title {
+        font-size: 26px;
+      }
+
+      .product-card img {
+        height: 260px;
+      }
+
+      .cart-box {
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>DEF LEPPARD</h1>
+    <p>ROCK STYLE • CONCERT WEAR • STREET CULTURE</p>
+  </header>
+
+  <nav>
+    <a href="#home">HOME</a>
+    <a href="#shop">SHOP</a>
+    <a href="#shopping-bag">SHOPPING BAG (<span id="cart-count">0</span>)</a>
+    <a href="#about">ABOUT</a>
+  </nav>
+
+  <main>
+
+    <section class="hero" id="home">
+      <h2>ROCK YOUR STYLE</h2>
+      <p>
+        Bring rock-and-roll energy to your wardrobe.
+        Explore our Def Leppard-inspired clothing collection.
+      </p>
+      <a class="button gold-button" href="#shop">SHOP THE COLLECTION</a>
+    </section>
+
+    <section class="section" id="shop">
+      <h2 class="section-title">OUR COLLECTION</h2>
+      <p class="section-description">
+        Choose your style, select your size and add it to your shopping bag.
+      </p>
+
+      <div class="products">
+
+        <article class="product-card">
+          <img
+            src="images/IMG_3927.jpeg"
+            alt="Black Pyromania T-shirt"
+          >
+
+          <h3>Pyromania Black T-Shirt</h3>
+
+          <p class="description">
+            A bold black rock-inspired T-shirt for everyday style.
+          </p>
+
+          <p class="price">$75.00</p>
+
+          <div class="product-options">
+            <label for="size-shirt">Choose your size:</label>
+            <select id="size-shirt">
+              <option value="S">Small (S)</option>
+              <option value="M" selected>Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">Extra Large (XL)</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </div>
+
+          <button
+            class="button"
+            type="button"
+            onclick="addToCart('shirt', 'size-shirt')"
+          >
+            ADD TO BAG
+          </button>
+        </article>
+
+        <article class="product-card">
+          <img
+            src="images/IMG_3926.jpeg"
+            alt="White Def Leppard hoodie"
+          >
+
+          <h3>Def Leppard White Hoodie</h3>
+
+          <p class="description">
+            A clean white hoodie with a rock-inspired look.
+          </p>
+
+          <p class="price">$75.00</p>
+
+          <div class="product-options">
+            <label for="size-hoodie">Choose your size:</label>
+            <select id="size-hoodie">
+              <option value="S">Small (S)</option>
+              <option value="M" selected>Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">Extra Large (XL)</option>
+              <option value="XXL">XXL</option>
+            </select>
+          </div>
+
+          <button
+            class="button"
+            type="button"
+            onclick="addToCart('hoodie', 'size-hoodie')"
+          >
+            ADD TO BAG
+          </button>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="section" id="shopping-bag">
+      <h2 class="section-title">YOUR SHOPPING BAG</h2>
+      <p class="section-description">
+        Review your items before preparing your order.
+      </p>
+
+      <div class="cart-box">
+
+        <div id="cart-items" aria-live="polite">
+          <p class="cart-empty">Your shopping bag is empty.</p>
+        </div>
+
+        <div class="cart-total">
+          Total: <span id="cart-total">$0.00</span>
+        </div>
+
+        <form id="checkout-form" class="checkout-form">
+          <h3>YOUR ORDER INFORMATION</h3>
+
+          <label for="customer-name">Full name</label>
+          <input
+            type="text"
+            id="customer-name"
+            placeholder="Enter your full name"
+            autocomplete="name"
+            required
+          >
+
+          <label for="customer-email">Email address</label>
+          <input
+            type="email"
+            id="customer-email"
+            placeholder="Enter your email address"
+            autocomplete="email"
+            required
+          >
+
+          <label for="customer-address">Delivery address</label>
+          <textarea
+            id="customer-address"
+            rows="3"
+            placeholder="Enter your delivery address"
+            autocomplete="street-address"
+            required
+          ></textarea>
+
+          <button class="button" type="submit">
+            PREPARE MY ORDER
+          </button>
+
+          <p class="notice">
+            This prepares your order details. Payment and delivery
+            arrangements must be confirmed with the seller.
+          </p>
+        </form>
+
+        <div id="order-result" class="order-result" aria-live="polite">
+          <h3>YOUR ORDER IS READY!</h3>
+
+          <p>
+            Your order details are below. Copy them, then open our TikTok
+            profile and send the details to us in a direct message.
+          </p>
+
+          <div id="order-details"></div>
+
+          <button
+            type="button"
+            class="button gold-button"
+            id="copy-order-button"
+          >
+            COPY ORDER DETAILS
+          </button>
+
+          <a
+            class="button"
+            href="https://www.tiktok.com/@elliot6675"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            OPEN OUR TIKTOK PROFILE
+          </a>
+
+          <p class="order-note">
+            Important: your order is not sent automatically. You must
+            send the copied details through TikTok and wait for the seller
+            to confirm your order.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>ABOUT OUR STORE</h2>
+      <p>
+        Welcome to our rock-inspired clothing store. We bring together
+        bold designs and concert-inspired fashion for people who want
+        their style to stand out. Browse our collection, choose your
+        size and contact us through TikTok to discuss your order.
+      </p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; <span id="current-year"></span> Def Leppard Rock Store.</p>
+    <p>Orders and enquiries through TikTok:</p>
+    <p>
+      <a
+        href="https://www.tiktok.com/@elliot6675"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        @elliot6675
+      </a>
+    </p>
+  </footer>
+
+  <script>
+    "use strict";
+
+    const PRODUCTS = {
+      shirt: {
+        name: "Pyromania Black T-Shirt",
+        price: 75
+      },
+
+      hoodie: {
+        name: "Def Leppard White Hoodie",
+        price: 75
+      }
+    };
+
+    let cart = [];
+    let latestOrderText = "";
+
+    const cartItemsElement = document.getElementById("cart-items");
+    const cartCountElement = document.getElementById("cart-count");
+    const cartTotalElement = document.getElementById("cart-total");
+    const checkoutForm = document.getElementById("checkout-form");
+    const orderResult = document.getElementById("order-result");
+    const orderDetailsElement = document.getElementById("order-details");
+    const copyOrderButton = document.getElementById("copy-order-button");
+
+    function money(amount) {
+      return "$" + amount.toFixed(2);
+    }
+
+    function getCartTotal() {
+      return cart.reduce(function (total, item) {
+        return total + item.price;
+      }, 0);
+    }
+
+    function addToCart(productId, sizeElementId) {
+      const product = PRODUCTS[productId];
+      const sizeElement = document.getElementById(sizeElementId);
+
+      if (!product || !sizeElement) {
+        alert("Sorry, this product could not be added. Please refresh the page.");
+        return;
+      }
+
+      const selectedSize = sizeElement.value;
+
+      cart.push({
+        id: productId,
+        name: product.name,
+        price: product.price,
+        size: selectedSize
+      });
+
+      renderCart();
+
+      orderResult.style.display = "none";
+
+      alert(product.name + " (Size " + selectedSize + ") has been added to your bag.");
+
+      document.getElementById("shopping-bag").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    function removeFromCart(index) {
+      if (index < 0 || index >= cart.length) {
+        return;
+      }
+
+      cart.splice(index, 1);
+      renderCart();
+      orderResult.style.display = "none";
+    }
+
+    function renderCart() {
+      cartCountElement.textContent = cart.length;
+      cartTotalElement.textContent = money(getCartTotal());
+
+      if (cart.length === 0) {
+        cartItemsElement.innerHTML =
+          '<p class="cart-empty">Your shopping bag is empty.</p>';
+
+        return;
+      }
+
+      cartItemsElement.innerHTML = "";
+
+      cart.forEach(function (item, index) {
+        const row = document.createElement("div");
+        row.className = "cart-item";
+
+        const info = document.createElement("div");
+        info.className = "cart-item-info";
+
+        const title = document.createElement("strong");
+        title.textContent = item.name;
+
+        const details = document.createElement("div");
+        details.innerHTML = "";
+        const small = document.createElement("small");
+        small.textContent = "Size: " + item.size + " | " + money(item.price);
+
+        info.appendChild(title);
+        info.appendChild(document.createElement("br"));
+        info.appendChild(small);
+
+        const removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.className = "remove-button";
+        removeButton.textContent = "REMOVE";
+
+        removeButton.addEventListener("click", function () {
+          removeFromCart(index);
+        });
+
+        row.appendChild(info);
+        row.appendChild(removeButton);
+        cartItemsElement.appendChild(row);
+      });
+    }
+
+    checkoutForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      if (cart.length === 0) {
+        alert("Your shopping bag is empty. Please add a product before preparing your order.");
+        return;
+      }
+
+      if (!checkoutForm.checkValidity()) {
+        checkoutForm.reportValidity();
+        return;
+      }
+
+      const customerName =
+        document.getElementById("customer-name").value.trim();
+
+      const customerEmail =
+        document.getElementById("customer-email").value.trim();
+
+      const customerAddress =
+        document.getElementById("customer-address").value.trim();
+
+      if (!customerName || !customerEmail || !customerAddress) {
+        alert("Please complete all the order information.");
+        return;
+      }
+
+      let message = "NEW CLOTHING ORDER\n";
+      message += "--------------------------\n";
+      message += "Name: " + customerName + "\n";
+      message += "Email: " + customerEmail + "\n";
+      message += "Delivery address: " + customerAddress + "\n\n";
+      message += "ITEMS ORDERED:\n";
+
+      cart.forEach(function (item, index) {
+        message +=
+          (index + 1) + ". " +
+          item.name +
+          " | Size: " + item.size +
+          " | Price: " + money(item.price) + "\n";
+      });
+
+      message += "\nTOTAL: " + money(getCartTotal()) + "\n";
+      message += "Please confirm availability, delivery cost and payment details.";
+
+      latestOrderText = message;
+      orderDetailsElement.textContent = message;
+      orderResult.style.display = "block";
+
+      orderResult.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    });
+
+    copyOrderButton.addEventListener("click", async function () {
+      if (!latestOrderText) {
+        alert("Please prepare your order first.");
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(latestOrderText);
+        alert("Order details copied! Now tap OPEN OUR TIKTOK PROFILE and send the details in a TikTok message.");
+      } catch (error) {
+        // Fallback for previews or browsers that do not support clipboard access.
+        const temporaryText = document.createElement("textarea");
+        temporaryText.value = latestOrderText;
+        temporaryText.setAttribute("readonly", "");
+        temporaryText.style.position = "fixed";
+        temporaryText.style.opacity = "0";
+
+        document.body.appendChild(temporaryText);
+        temporaryText.select();
+        temporaryText.setSelectionRange(0, temporaryText.value.length);
+
+        const copied = document.execCommand("copy");
+        document.body.removeChild(temporaryText);
+
+        if (copied) {
+          alert("Order details copied! Open TikTok and send them in a message.");
+        } else {
+          alert("Automatic copying is unavailable. Press and hold the order details to copy them manually.");
+        }
+      }
+    });
+
+    document.getElementById("current-year").textContent =
+      new Date().getFullYear();
+
+    renderCart();
+  </script>
+
+</body>
+</html>
